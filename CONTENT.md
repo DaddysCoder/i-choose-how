@@ -4,7 +4,7 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 
 ## Shared chrome
 
-- Header brand: I Choose How
+- Header brand: monogram + I Choose How
 - Label: Fictional demonstration
 - About: four disclaimer paragraphs (no real consent, no personal data, no legal advice)
 - Toolbar (after mode chosen): Read | Listen | Show me | Supporter
@@ -15,8 +15,9 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 ## Shared screens
 
 ### 1. Welcome
-- Title: I Choose How
-- Tagline: Information my way. Decisions my choice.
+- Wordmark image (cropped brand lockup)
+- Title (visually hidden, present for structure): I Choose How
+- Tagline: My voice. My choices. My way. ("My choices." accented in brand blue)
 - Short body + fictional demo badge
 - Actions: Start, What is this?
 
@@ -49,14 +50,23 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 - I understand / I am not sure / I want help / I want more time / I do not want to agree
 - Decision footer visible
 
-### 7A Practice questions (multi-select, no typing)
-- Sam knows what is being asked
-- Sam can say no without trouble
-- Sam can ask for help or more time
-- Sam can change their mind later
+### 7A Question builder
+- Title: What would Sam like to ask?
+- Instruction: Choose one or more questions. Sam can also ask for help or more time.
+- Multi-select (no typing). Empty selection allowed.
+- "I do not have a question yet." is exclusive with other questions.
+- Questions:
+  - What information will be shared?
+  - Who will see it?
+  - Why do they need it?
+  - How long will they use it?
+  - Can I change my mind later?
+  - Who can help me decide?
+  - I do not have a question yet.
 
 ### 8A Summary
-- Mode, option, questions
+- Mode, next-step option, every selected question in plain text (or "None selected")
+- "I do not have a question yet." shown neutrally when chosen
 - This did not give consent. It was only a fictional demonstration. No consent was recorded.
 - Start again / Choose another topic
 
@@ -79,10 +89,20 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 - Does not ask to sign
 - Also: I understand / I am not sure / I want help / I want more time / I do not want to agree
 
-### 7B Practice questions
-- Knows support offered / pretend price / how to cancel / can ask for a change
+### 7B Question builder
+- Same title and instruction pattern as consent
+- Questions:
+  - What support will I get?
+  - When and where will I get it?
+  - How much will it cost?
+  - Are there any other charges?
+  - What happens if I cancel?
+  - How can I change or end the agreement?
+  - Who can help me check it?
+  - I do not have a question yet.
 
 ### 8B Summary
+- Mode, option, selected questions
 - This did not sign or accept an agreement. It was only a fictional demonstration. Nothing was legally accepted.
 - Start again / Choose another topic
 
@@ -106,3 +126,9 @@ Presets: Make it shorter | Give me an example | Show the steps
 If asked Should I agree?:
 
 I cannot decide for you. You can ask questions, get help or take more time.
+
+## Session memory
+
+- In memory only (no localStorage, cookies, or network persistence)
+- Cleared on Home, Start again, and page reload
+- Back preserves topic, mode, choice, and selected questions within the session

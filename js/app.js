@@ -15,7 +15,8 @@
       questions: [],
       agreementCardIndex: 0,
       explainVariant: null,
-      safetyNote: null
+      safetyNote: null,
+      focusQuestionId: null
     };
   }
 
@@ -215,8 +216,19 @@
     var c = ICH.CONTENT.welcome;
     var root = el("div", "stack");
     root.appendChild(el("span", "badge", c.fictional));
-    root.appendChild(el("h1", null, c.title));
-    root.appendChild(el("p", "lead", c.tagline));
+
+    var wordmark = document.createElement("img");
+    wordmark.className = "welcome-wordmark";
+    wordmark.src = c.wordmark;
+    wordmark.alt = c.title + ". " + c.tagline;
+    root.appendChild(wordmark);
+
+    var title = el("h1", "visually-hidden", c.title);
+    root.appendChild(title);
+
+    var tagline = el("p", "visually-hidden");
+    tagline.textContent = c.tagline;
+    root.appendChild(tagline);
     root.appendChild(el("p", null, c.body));
 
     var start = el("button", "btn btn-primary", "Start");
@@ -396,33 +408,60 @@
     return { node: root, progress: c.progress, toolbar: true, decision: true };
   }
 
-  function screenConsentQuestions() {
-    var c = ICH.CONTENT.consentQuestions;
+  function toggleQuestion(question, content) {
+    var id = question.id;
+    var selected = state.questions.indexOf(id) !== -1;
+    var noneId = content.noneYetId;
+
+    if (selected) {
+      state.questions = state.questions.filter(function (qid) {
+        return qid !== id;
+      });
+      return;
+    }
+
+    if (question.exclusive || id === noneId) {
+      state.questions = [id];
+      return;
+    }
+
+    state.questions = state.questions.filter(function (qid) {
+      return qid !== noneId;
+    });
+    state.questions.push(id);
+  }
+
+  function renderQuestionBuilder(content, summaryScreen) {
     var root = el("div", "stack");
-    root.appendChild(el("h1", null, c.title));
-    root.appendChild(el("p", null, c.body));
+    root.appendChild(el("h1", null, content.title));
+    root.appendChild(el("p", null, content.body));
     if (state.mode === "supporter") root.appendChild(ICH.Modes.renderSupporterPanel());
 
-    var list = el("ul", "checklist");
-    c.questions.forEach(function (q) {
+    var list = el("ul", "question-builder");
+    list.setAttribute("role", "group");
+    list.setAttribute("aria-label", content.title);
+
+    content.questions.forEach(function (q) {
       var li = document.createElement("li");
-      var label = document.createElement("label");
-      var input = document.createElement("input");
-      input.type = "checkbox";
-      input.value = q.id;
-      input.checked = state.questions.indexOf(q.id) !== -1;
-      input.addEventListener("change", function () {
-        if (input.checked) {
-          if (state.questions.indexOf(q.id) === -1) state.questions.push(q.id);
-        } else {
-          state.questions = state.questions.filter(function (id) {
-            return id !== q.id;
-          });
-        }
+      var pressed = state.questions.indexOf(q.id) !== -1;
+      var btn = el("button", "question-option");
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", pressed ? "true" : "false");
+      btn.setAttribute("data-question-id", q.id);
+
+      var mark = el("span", "question-state", pressed ? "☑" : "☐");
+      mark.setAttribute("aria-hidden", "true");
+      var label = el("span", "question-label", q.label);
+      btn.appendChild(mark);
+      btn.appendChild(label);
+
+      btn.addEventListener("click", function () {
+        toggleQuestion(q, content);
+        state.focusQuestionId = q.id;
+        render();
       });
-      label.appendChild(input);
-      label.appendChild(document.createTextNode(q.label));
-      li.appendChild(label);
+
+      li.appendChild(btn);
       list.appendChild(li);
     });
     root.appendChild(list);
@@ -430,11 +469,36 @@
     var next = el("button", "btn btn-primary", "See summary");
     next.type = "button";
     next.addEventListener("click", function () {
-      go("consentSummary");
+      go(summaryScreen);
     });
     root.appendChild(next);
 
-    return { node: root, progress: c.progress, toolbar: true, decision: true };
+    return { node: root, progress: content.progress, toolbar: true, decision: true };
+  }
+
+  function screenConsentQuestions() {
+    return renderQuestionBuilder(ICH.CONTENT.consentQuestions, "consentSummary");
+  }
+
+  function appendSummary(dl, term, def) {
+    dl.appendChild(el("dt", null, term));
+    dl.appendChild(el("dd", null, def));
+  }
+
+  function appendQuestionSummary(dl, topic) {
+    dl.appendChild(el("dt", null, "Questions selected"));
+    var dd = document.createElement("dd");
+    if (!state.questions.length) {
+      dd.textContent = "None selected";
+      dl.appendChild(dd);
+      return;
+    }
+    var ul = el("ul", "summary-questions");
+    state.questions.forEach(function (id) {
+      ul.appendChild(el("li", null, ICH.questionLabel(topic, id)));
+    });
+    dd.appendChild(ul);
+    dl.appendChild(dd);
   }
 
   function screenConsentSummary() {
@@ -447,7 +511,7 @@
     appendSummary(dl, "Topic", "Consent");
     appendSummary(dl, "How information was shown", ICH.MODE_LABELS[state.mode] || state.mode);
     appendSummary(dl, "Option chosen", ICH.choiceLabel(state.choice));
-    appendSummary(dl, "Questions selected", questionLabels("consent"));
+    appendQuestionSummary(dl, "consent");
     box.appendChild(dl);
     root.appendChild(box);
 
@@ -474,27 +538,6 @@
     root.appendChild(other);
 
     return { node: root, progress: c.progress, toolbar: true, decision: true };
-  }
-
-  function appendSummary(dl, term, def) {
-    dl.appendChild(el("dt", null, term));
-    dl.appendChild(el("dd", null, def));
-  }
-
-  function questionLabels(topic) {
-    var source =
-      topic === "consent"
-        ? ICH.CONTENT.consentQuestions.questions
-        : ICH.CONTENT.agreementQuestions.questions;
-    var selected = state.questions
-      .map(function (id) {
-        for (var i = 0; i < source.length; i++) {
-          if (source[i].id === id) return source[i].label;
-        }
-        return null;
-      })
-      .filter(Boolean);
-    return selected.length ? selected.join("; ") : "None selected";
   }
 
   function screenAgreementScenario() {
@@ -627,44 +670,7 @@
   }
 
   function screenAgreementQuestions() {
-    var c = ICH.CONTENT.agreementQuestions;
-    var root = el("div", "stack");
-    root.appendChild(el("h1", null, c.title));
-    root.appendChild(el("p", null, c.body));
-    if (state.mode === "supporter") root.appendChild(ICH.Modes.renderSupporterPanel());
-
-    var list = el("ul", "checklist");
-    c.questions.forEach(function (q) {
-      var li = document.createElement("li");
-      var label = document.createElement("label");
-      var input = document.createElement("input");
-      input.type = "checkbox";
-      input.value = q.id;
-      input.checked = state.questions.indexOf(q.id) !== -1;
-      input.addEventListener("change", function () {
-        if (input.checked) {
-          if (state.questions.indexOf(q.id) === -1) state.questions.push(q.id);
-        } else {
-          state.questions = state.questions.filter(function (id) {
-            return id !== q.id;
-          });
-        }
-      });
-      label.appendChild(input);
-      label.appendChild(document.createTextNode(q.label));
-      li.appendChild(label);
-      list.appendChild(li);
-    });
-    root.appendChild(list);
-
-    var next = el("button", "btn btn-primary", "See summary");
-    next.type = "button";
-    next.addEventListener("click", function () {
-      go("agreementSummary");
-    });
-    root.appendChild(next);
-
-    return { node: root, progress: c.progress, toolbar: true, decision: true };
+    return renderQuestionBuilder(ICH.CONTENT.agreementQuestions, "agreementSummary");
   }
 
   function screenAgreementSummary() {
@@ -677,7 +683,7 @@
     appendSummary(dl, "Topic", "Service agreement");
     appendSummary(dl, "How information was shown", ICH.MODE_LABELS[state.mode] || state.mode);
     appendSummary(dl, "Option chosen", ICH.choiceLabel(state.choice));
-    appendSummary(dl, "Questions selected", questionLabels("agreement"));
+    appendQuestionSummary(dl, "agreement");
     box.appendChild(dl);
     root.appendChild(box);
 
@@ -770,6 +776,17 @@
     updateModeTabs();
     ICH.Modes.applyChrome(els.root, state.mode);
     els.btnBack.disabled = state.screen === "welcome" && historyStack.length === 0;
+
+    if (state.focusQuestionId) {
+      var restore = els.main.querySelector(
+        '[data-question-id="' + state.focusQuestionId + '"]'
+      );
+      state.focusQuestionId = null;
+      if (restore) {
+        restore.focus({ preventScroll: false });
+        return;
+      }
+    }
     els.main.focus({ preventScroll: true });
   }
 

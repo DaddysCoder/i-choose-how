@@ -37,10 +37,16 @@ ICH.TOPICS = {
 ICH.CONTENT = {
   welcome: {
     title: "I Choose How",
-    tagline: "Information my way. Decisions my choice.",
+    tagline: "My voice. My choices. My way.",
+    taglineParts: [
+      { text: "My voice. ", accent: false },
+      { text: "My choices. ", accent: true },
+      { text: "My way.", accent: false }
+    ],
     body:
       "This fictional demonstration shows how someone might choose how information is explained before they decide. Nothing here is real consent or a real agreement.",
-    fictional: "Fictional demonstration only"
+    fictional: "Fictional demonstration only",
+    wordmark: "assets/brand/wordmark.png"
   },
 
   whatIsThis: {
@@ -136,13 +142,17 @@ ICH.CONTENT = {
   consentQuestions: {
     step: "7A",
     progress: { current: 4, total: 5 },
-    title: "Practice questions",
-    body: "Tap any that feel true for Sam. You do not need to type.",
+    title: "What would Sam like to ask?",
+    body: "Choose one or more questions. Sam can also ask for help or more time.",
+    noneYetId: "cq_none",
     questions: [
-      { id: "cq1", label: "Sam knows what is being asked." },
-      { id: "cq2", label: "Sam can say no without trouble." },
-      { id: "cq3", label: "Sam can ask for help or more time." },
-      { id: "cq4", label: "Sam can change their mind later." }
+      { id: "cq1", label: "What information will be shared?" },
+      { id: "cq2", label: "Who will see it?" },
+      { id: "cq3", label: "Why do they need it?" },
+      { id: "cq4", label: "How long will they use it?" },
+      { id: "cq5", label: "Can I change my mind later?" },
+      { id: "cq6", label: "Who can help me decide?" },
+      { id: "cq_none", label: "I do not have a question yet.", exclusive: true }
     ]
   },
 
@@ -271,13 +281,18 @@ ICH.CONTENT = {
   agreementQuestions: {
     step: "7B",
     progress: { current: 4, total: 5 },
-    title: "Practice questions",
-    body: "Tap any that feel true for Sam. You do not need to type.",
+    title: "What would Sam like to ask?",
+    body: "Choose one or more questions. Sam can also ask for help or more time.",
+    noneYetId: "aq_none",
     questions: [
-      { id: "aq1", label: "Sam knows what support is offered." },
-      { id: "aq2", label: "Sam knows the pretend price." },
-      { id: "aq3", label: "Sam knows how to cancel." },
-      { id: "aq4", label: "Sam can ask for a change." }
+      { id: "aq1", label: "What support will I get?" },
+      { id: "aq2", label: "When and where will I get it?" },
+      { id: "aq3", label: "How much will it cost?" },
+      { id: "aq4", label: "Are there any other charges?" },
+      { id: "aq5", label: "What happens if I cancel?" },
+      { id: "aq6", label: "How can I change or end the agreement?" },
+      { id: "aq7", label: "Who can help me check it?" },
+      { id: "aq_none", label: "I do not have a question yet.", exclusive: true }
     ]
   },
 
@@ -326,4 +341,15 @@ ICH.choiceLabel = function (choiceId) {
     if (all[i].id === choiceId) return all[i].label;
   }
   return choiceId || "-";
+};
+
+ICH.questionLabel = function (topic, questionId) {
+  var source =
+    topic === "consent"
+      ? ICH.CONTENT.consentQuestions.questions
+      : ICH.CONTENT.agreementQuestions.questions;
+  for (var i = 0; i < source.length; i++) {
+    if (source[i].id === questionId) return source[i].label;
+  }
+  return questionId || "-";
 };

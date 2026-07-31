@@ -9,8 +9,9 @@
 
 - Branding: `efcccdc`
 - Question builder: `bda4485`
-- Review / remediation / docs: `9be321f` (plus any tiny follow-up cleanup on the same branch)
-- Branch tip: run `git rev-parse HEAD`
+- Review / remediation / docs: `9be321f`
+- Cleanup tip: `8459bb0`
+- Branch tip: `8459bb01d32cb7f1d50f260294f11656dac0e8cc`
 
 ```powershell
 git log --oneline -5

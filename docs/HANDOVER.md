@@ -9,7 +9,8 @@
 
 - Branding: `efcccdc`
 - Question builder: `bda4485`
-- Review / remediation / docs: *(this commit — see `git rev-parse HEAD` after pull)*
+- Review / remediation / docs: `9be321f` (plus any tiny follow-up cleanup on the same branch)
+- Branch tip: run `git rev-parse HEAD`
 
 ```powershell
 git log --oneline -5

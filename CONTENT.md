@@ -4,21 +4,20 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 
 ## Shared chrome
 
-- Header brand: monogram + I Choose How
-- Label: Fictional demonstration
-- About: four disclaimer paragraphs (no real consent, no personal data, no legal advice)
+- Header brand: light-on-dark monogram + I Choose How
+- About: two calm boundary paragraphs (no consent recorded, nothing saved, no legal advice)
 - Toolbar (after mode chosen): Read | Listen | Show me | Supporter
 - Progress: Step X of Y (no timers)
 - Nav: Back | Home | Start again
-- Decision footer: This demonstration does not record consent or provide legal advice.
+- Footer (always visible): Does not record consent or give legal advice.
 
 ## Shared screens
 
 ### 1. Welcome
-- Wordmark image (cropped brand lockup)
-- Title (visually hidden, present for structure): I Choose How
-- Tagline: My voice. My choices. My way. ("My choices." accented in brand blue)
-- Short body + fictional demo badge
+- Wordmark image (mist-backed crop from logo suite)
+- Title (visually hidden): I Choose How
+- Tagline (visually hidden / in wordmark): My voice. My choices. My way.
+- Short body (no repeated “demo/not real” badge)
 - Actions: Start, What is this?
 
 ### 2. What is this?
@@ -34,7 +33,7 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 
 ## Consent pathway (4A-8A)
 
-### 4A Pretend scenario
+### 4A Example scenario
 - Example Support / Sam
 - Example Support wants to share Sam's support information
 - CTA: Help Sam understand
@@ -48,7 +47,7 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 
 ### 6A Choices
 - I understand / I am not sure / I want help / I want more time / I do not want to agree
-- Decision footer visible
+- Footer visible (shared boundary line)
 
 ### 7A Question builder
 - Title: What would Sam like to ask?
@@ -67,26 +66,24 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 ### 8A Summary
 - Mode, next-step option, every selected question in plain text (or "None selected")
 - "I do not have a question yet." shown neutrally when chosen
-- This did not give consent. It was only a fictional demonstration. No consent was recorded.
+- Boundary line remains in the shared footer (no repeated summary disclaimer block)
 - Start again / Choose another topic
 
 ## Service agreement pathway (4B-8B)
 
-### 4B Fictional agreement
+### 4B Example agreement
 - Example Support / Sam
-- No signing
 - CTA: Help Sam understand
 
 ### 5B Four cards (one at a time)
 1. Support - weekly community activities
-2. Price - $40 per visit (pretend)
+2. Price - $40 per visit (example)
 3. Cancellations - one day's notice when possible
 4. Responsibilities - respect; ask questions; ask for changes
 - Each card: plain sentence + Explain another way
 
 ### 6B Choices
 - Includes I want something changed
-- Does not ask to sign
 - Also: I understand / I am not sure / I want help / I want more time / I do not want to agree
 
 ### 7B Question builder
@@ -103,7 +100,7 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 
 ### 8B Summary
 - Mode, option, selected questions
-- This did not sign or accept an agreement. It was only a fictional demonstration. Nothing was legally accepted.
+- Boundary line remains in the shared footer
 - Start again / Choose another topic
 
 ## Modes

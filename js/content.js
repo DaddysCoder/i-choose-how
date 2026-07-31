@@ -1,11 +1,10 @@
 /* Fixed copy and explain variants for I Choose How prototype */
 window.ICH = window.ICH || {};
 
+/* Single calm boundary — also mirrored in the always-visible footer */
 ICH.ABOUT_TEXT = [
-  "This is a fictional demonstration of how a digital tool might help someone choose how information is explained before a decision.",
-  "It does not record consent, collect personal information, connect to any real service, or give legal advice.",
-  "Nothing you tap is saved after you leave or start again. Names and scenarios are made up for demonstration only.",
-  "If you need real advice about consent or agreements, speak with a trusted person or a qualified professional."
+  "I Choose How is a prototype for exploring how information can be explained before a decision.",
+  "It does not record consent, store personal information, or give legal advice. Nothing you tap is saved after you leave or start again."
 ];
 
 ICH.CANNOT_DECIDE =
@@ -30,7 +29,7 @@ ICH.TOPICS = {
   agreement: {
     id: "agreement",
     title: "Service agreement",
-    description: "Look at a made-up support agreement, one part at a time."
+    description: "Look at an example support agreement, one part at a time."
   }
 };
 
@@ -44,17 +43,15 @@ ICH.CONTENT = {
       { text: "My way.", accent: false }
     ],
     body:
-      "This fictional demonstration shows how someone might choose how information is explained before they decide. Nothing here is real consent or a real agreement.",
-    fictional: "Fictional demonstration only",
+      "Choose how information is explained before a decision — Read, Listen, Show me, or With a supporter.",
     wordmark: "assets/brand/wordmark.png"
   },
 
   whatIsThis: {
     title: "What is this?",
     body: [
-      "I Choose How is a clickable prototype. It shows two made-up pathways: consent, and a service agreement.",
-      "You can try Read, Listen, Show me, or With a supporter. You can change how information is shown at any time.",
-      "This demonstration does not record consent or provide legal advice."
+      "I Choose How walks through two pathways: consent, and a service agreement.",
+      "You can try Read, Listen, Show me, or With a supporter, and change how information is shown at any time."
     ]
   },
 
@@ -65,7 +62,7 @@ ICH.CONTENT = {
 
   chooseHow: {
     title: "Choose how",
-    body: "How do you want information explained in this demonstration?",
+    body: "How do you want information explained?",
     options: [
       { id: "read", label: "Read", desc: "Plain text I can read at my pace." },
       { id: "listen", label: "Listen", desc: "Hear the words using my browser. I press Play." },
@@ -77,24 +74,24 @@ ICH.CONTENT = {
   consentScenario: {
     step: "4A",
     progress: { current: 1, total: 5 },
-    title: "Pretend scenario",
+    title: "Example scenario",
     org: "Example Support",
     person: "Sam",
     body:
-      "Example Support wants to share Sam's support information. Before that happens, Sam needs to understand what consent means. This is only a pretend story.",
+      "Example Support wants to share Sam's support information. Before that happens, Sam needs to understand what consent means.",
     cta: "Help Sam understand",
     icon: "assets/icons/people.svg",
     explain: {
       shorter:
-        "Example Support wants to share Sam's support information. Sam needs to understand consent first. This is only a pretend story.",
+        "Example Support wants to share Sam's support information. Sam needs to understand consent first.",
       example:
         "Example: Before a helper looks at Sam's plan, they ask Sam if that is okay. Sam can say yes, no, or ask for more time.",
       steps: [
-        "Meet Example Support (pretend).",
+        "Meet Example Support.",
         "Learn what consent means.",
         "Choose what feels right for Sam.",
-        "Answer a few practice questions.",
-        "See a summary — still not real consent."
+        "Choose questions Sam might ask.",
+        "See a summary."
       ]
     }
   },
@@ -129,7 +126,7 @@ ICH.CONTENT = {
     step: "6A",
     progress: { current: 3, total: 5 },
     title: "What would Sam like to do?",
-    body: "This is practice only. Nothing here records real consent.",
+    body: "Choose what feels right for Sam.",
     choices: [
       { id: "understand", label: "I understand" },
       { id: "not_sure", label: "I am not sure" },
@@ -160,31 +157,30 @@ ICH.CONTENT = {
     step: "8A",
     progress: { current: 5, total: 5 },
     title: "Summary",
-    disclaimer:
-      "This did not give consent. It was only a fictional demonstration. No consent was recorded."
+    disclaimer: null
   },
 
   agreementScenario: {
     step: "4B",
     progress: { current: 1, total: 5 },
-    title: "Fictional agreement",
+    title: "Example agreement",
     org: "Example Support",
     person: "Sam",
     body:
-      "Example Support has a made-up service agreement for Sam. We will look at it in plain language. You will not be asked to sign anything.",
+      "Example Support has a service agreement for Sam. We will look at it in plain language.",
     cta: "Help Sam understand",
     icon: "assets/icons/document.svg",
     explain: {
       shorter:
-        "This is a pretend agreement. We will explain parts in plain words. No signing.",
+        "An example agreement in plain words. You will look at each part.",
       example:
         "Example: A flyer that says what support costs and how to cancel — written so Sam can follow it.",
       steps: [
-        "Open the pretend agreement.",
+        "Open the agreement.",
         "Read each part: support, price, cancellations, responsibilities.",
         "Choose what Sam wants to do.",
-        "Answer practice questions.",
-        "See a summary — still not a signed agreement."
+        "Choose questions Sam might ask.",
+        "See a summary."
       ]
     }
   },
@@ -214,12 +210,12 @@ ICH.CONTENT = {
       {
         id: "price",
         title: "Price",
-        body: "The made-up cost is $40 for each visit. This is not a real charge.",
+        body: "The example cost is $40 for each visit.",
         icon: "assets/icons/price.svg",
         explain: {
-          shorter: "Pretend cost: $40 each visit. Not a real bill.",
+          shorter: "Example cost: $40 each visit.",
           example:
-            "Example: If Sam has two visits in a week, the pretend total is $80.",
+            "Example: If Sam has two visits in a week, the total is $80.",
           steps: [
             "See the price per visit.",
             "Count how many visits.",
@@ -267,7 +263,7 @@ ICH.CONTENT = {
     step: "6B",
     progress: { current: 3, total: 5 },
     title: "What would Sam like to do?",
-    body: "This is practice only. You will not be asked to sign or accept a real agreement.",
+    body: "Choose what feels right for Sam.",
     choices: [
       { id: "understand", label: "I understand" },
       { id: "not_sure", label: "I am not sure" },
@@ -300,8 +296,7 @@ ICH.CONTENT = {
     step: "8B",
     progress: { current: 5, total: 5 },
     title: "Summary",
-    disclaimer:
-      "This did not sign or accept an agreement. It was only a fictional demonstration. Nothing was legally accepted."
+    disclaimer: null
   },
 
   helpScreens: {
@@ -313,7 +308,7 @@ ICH.CONTENT = {
     help: {
       title: "Getting help",
       body:
-        "In real life, ask a trusted person or an advocate. In this demo, use Back, or choose With a supporter in the toolbar."
+        "Ask a trusted person or an advocate. Here, use Back, or choose With a supporter in the toolbar."
     },
     more_time: {
       title: "Take more time",
@@ -323,12 +318,12 @@ ICH.CONTENT = {
     change: {
       title: "Wanting a change",
       body:
-        "In a real agreement, you can ask for changes before you agree. This demo does not send requests anywhere."
+        "You can ask for changes before you agree. This prototype does not send requests anywhere."
     },
     do_not_agree: {
       title: "Not agreeing",
       body:
-        "Saying no is a valid choice. This demonstration does not record that choice as real consent or a real refusal on file."
+        "Saying no is a valid choice."
     }
   }
 };

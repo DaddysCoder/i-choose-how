@@ -123,7 +123,8 @@
   }
 
   function showDecisionFooter(show) {
-    els.footer.hidden = !show;
+    /* Boundary line stays visible; `show` kept for call-site compatibility */
+    els.footer.hidden = false;
   }
 
   function explainBlock(variants, speakParts) {
@@ -215,7 +216,6 @@
   function screenWelcome() {
     var c = ICH.CONTENT.welcome;
     var root = el("div", "stack");
-    root.appendChild(el("span", "badge", c.fictional));
 
     var wordmark = document.createElement("img");
     wordmark.className = "welcome-wordmark";
@@ -245,7 +245,7 @@
 
     root.appendChild(start);
     root.appendChild(what);
-    return { node: root, progress: null, toolbar: false, decision: false };
+    return { node: root, progress: null, toolbar: false, decision: true };
   }
 
   function screenWhatIsThis() {
@@ -515,9 +515,11 @@
     box.appendChild(dl);
     root.appendChild(box);
 
-    var notice = el("div", "notice");
-    notice.appendChild(el("p", null, c.disclaimer));
-    root.appendChild(notice);
+    if (c.disclaimer) {
+      var notice = el("div", "notice");
+      notice.appendChild(el("p", null, c.disclaimer));
+      root.appendChild(notice);
+    }
 
     var again = el("button", "btn btn-primary", "Start again");
     again.type = "button";
@@ -687,9 +689,11 @@
     box.appendChild(dl);
     root.appendChild(box);
 
-    var notice = el("div", "notice");
-    notice.appendChild(el("p", null, c.disclaimer));
-    root.appendChild(notice);
+    if (c.disclaimer) {
+      var notice = el("div", "notice");
+      notice.appendChild(el("p", null, c.disclaimer));
+      root.appendChild(notice);
+    }
 
     var again = el("button", "btn btn-primary", "Start again");
     again.type = "button";

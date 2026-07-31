@@ -1,0 +1,247 @@
+{
+  "results": [
+    {
+      "ok": true,
+      "msg": "edge: welcome tagline"
+    },
+    {
+      "ok": true,
+      "msg": "edge: welcome wordmark present"
+    },
+    {
+      "ok": true,
+      "msg": "edge: consent QB title"
+    },
+    {
+      "ok": true,
+      "msg": "edge: consent QB instruction"
+    },
+    {
+      "ok": true,
+      "msg": "edge: select real question"
+    },
+    {
+      "ok": true,
+      "msg": "edge: none-yet exclusive on"
+    },
+    {
+      "ok": true,
+      "msg": "edge: none-yet clears others"
+    },
+    {
+      "ok": true,
+      "msg": "edge: real question clears none-yet"
+    },
+    {
+      "ok": true,
+      "msg": "edge: real question selected again"
+    },
+    {
+      "ok": true,
+      "msg": "edge: empty selection allowed"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Back preserves selections"
+    },
+    {
+      "ok": true,
+      "msg": "edge: summary lists questions"
+    },
+    {
+      "ok": true,
+      "msg": "edge: summary lists second question"
+    },
+    {
+      "ok": true,
+      "msg": "edge: summary shows mode"
+    },
+    {
+      "ok": true,
+      "msg": "edge: agreement QB title"
+    },
+    {
+      "ok": true,
+      "msg": "edge: agreement none-yet exclusive"
+    },
+    {
+      "ok": true,
+      "msg": "edge: summary shows none-yet neutrally"
+    },
+    {
+      "ok": true,
+      "msg": "edge: no localStorage/sessionStorage/cookies"
+    },
+    {
+      "ok": true,
+      "msg": "edge: listen mode reachable"
+    },
+    {
+      "ok": true,
+      "msg": "edge: listen does not autoplay"
+    },
+    {
+      "ok": true,
+      "msg": "edge: About opens"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Escape closes About"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Consent Ãƒâ€” Read loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Consent Ãƒâ€” Listen loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Consent Ãƒâ€” Show me loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Consent Ãƒâ€” With a supporter loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Service agreement Ãƒâ€” Read loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Service agreement Ãƒâ€” Listen loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Service agreement Ãƒâ€” Show me loads"
+    },
+    {
+      "ok": true,
+      "msg": "edge: Service agreement Ãƒâ€” With a supporter loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: welcome tagline"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: welcome wordmark present"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: consent QB title"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: consent QB instruction"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: select real question"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: none-yet exclusive on"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: none-yet clears others"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: real question clears none-yet"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: real question selected again"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: empty selection allowed"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Back preserves selections"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: summary lists questions"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: summary lists second question"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: summary shows mode"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: agreement QB title"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: agreement none-yet exclusive"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: summary shows none-yet neutrally"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: no localStorage/sessionStorage/cookies"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: listen mode reachable"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: listen does not autoplay"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: About opens"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Escape closes About"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Consent Ãƒâ€” Read loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Consent Ãƒâ€” Listen loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Consent Ãƒâ€” Show me loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Consent Ãƒâ€” With a supporter loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Service agreement Ãƒâ€” Read loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Service agreement Ãƒâ€” Listen loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Service agreement Ãƒâ€” Show me loads"
+    },
+    {
+      "ok": true,
+      "msg": "firefox: Service agreement Ãƒâ€” With a supporter loads"
+    }
+  ],
+  "edgeOk": true,
+  "ffOk": true,
+  "at": "2026-07-31T03:50:11.925Z"
+}

@@ -67,9 +67,9 @@ async function runFlow(browserType, name, takeShots) {
   await clickText(page, "Start");
   await clickText(page, "Consent");
   await clickText(page, "Read");
-  await clickText(page, "Help Sam understand");
+  await clickText(page, "See what consent means");
   await clickText(page, "Continue");
-  await clickText(page, "I understand");
+  await clickText(page, "Continue to questions");
 
   // Question builder Ã¢â‚¬â€ consent
   log(await page.getByRole("heading", { name: "What would Sam like to ask?" }).count() === 1,
@@ -101,7 +101,7 @@ async function runFlow(browserType, name, takeShots) {
 
   // Back preserves
   await page.click("#btn-back");
-  await clickText(page, "I understand");
+  await clickText(page, "Continue to questions");
   log((await page.getByRole("button", { name: /Who will see it/ }).getAttribute("aria-pressed")) === "true",
     name + ": Back preserves selections");
 
@@ -118,13 +118,13 @@ async function runFlow(browserType, name, takeShots) {
   await clickText(page, "Start");
   await clickText(page, "Service agreement");
   await clickText(page, "Show me");
-  await clickText(page, "Help Sam understand");
+  await clickText(page, "Look at the agreement");
   // Walk agreement cards
   for (let i = 0; i < 3; i++) {
     await clickText(page, "Next part");
   }
   await clickText(page, "Continue");
-  await clickText(page, "I understand");
+  await clickText(page, "Continue to questions");
 
   log(await page.getByRole("heading", { name: "What would Sam like to ask?" }).count() === 1,
     name + ": agreement QB title");

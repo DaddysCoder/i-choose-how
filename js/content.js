@@ -73,13 +73,13 @@ ICH.CONTENT = {
 
   consentScenario: {
     step: "4A",
-    progress: { current: 1, total: 5 },
+    progress: { current: 1, total: 5, next: "What consent means" },
     title: "Example scenario",
     org: "Example Support",
     person: "Sam",
     body:
       "Example Support wants to share Sam's support information. Before that happens, Sam needs to understand what consent means.",
-    cta: "Help Sam understand",
+    cta: "See what consent means",
     icon: "assets/icons/people.svg",
     explain: {
       shorter:
@@ -89,7 +89,7 @@ ICH.CONTENT = {
       steps: [
         "Meet Example Support.",
         "Learn what consent means.",
-        "Choose what feels right for Sam.",
+        "Choose a next step.",
         "Choose questions Sam might ask.",
         "See a summary."
       ]
@@ -98,13 +98,14 @@ ICH.CONTENT = {
 
   consentMeaning: {
     step: "5A",
-    progress: { current: 2, total: 5 },
+    progress: { current: 2, total: 5, next: "Choose a next step" },
     title: "What consent means",
     body:
       "Consent means saying yes freely, knowing what you are saying yes to. You can also say no. You can change your mind. You can ask for help or more time.",
+    cta: "Continue",
     showPoints: [
-      { icon: "assets/icons/yes.svg", label: "Yes", text: "Say yes when you understand and agree." },
-      { icon: "assets/icons/no.svg", label: "No", text: "Say no if you do not agree." },
+      { icon: "assets/icons/yes.svg", label: "Yes", text: "Say yes when you understand and want to go ahead." },
+      { icon: "assets/icons/no.svg", label: "No", text: "Say no if you do not want to go ahead." },
       { icon: "assets/icons/time.svg", label: "Time", text: "Ask for more time if you need it." },
       { icon: "assets/icons/help.svg", label: "Help", text: "Ask someone you trust for help." }
     ],
@@ -124,23 +125,29 @@ ICH.CONTENT = {
 
   consentChoices: {
     step: "6A",
-    progress: { current: 3, total: 5 },
-    title: "What would Sam like to do?",
-    body: "Choose what feels right for Sam.",
+    progress: { current: 3, total: 5, next: "Questions" },
+    title: "Choose a next step",
+    body: "Pick how to continue this demo path. Nothing here records a real decision.",
+    otherIntro: "Need something else?",
     choices: [
-      { id: "understand", label: "I understand" },
-      { id: "not_sure", label: "I am not sure" },
-      { id: "help", label: "I want help" },
-      { id: "more_time", label: "I want more time" },
-      { id: "do_not_agree", label: "I do not want to agree" }
+      {
+        id: "understand",
+        label: "Continue to questions",
+        hint: "Next: pick questions Sam might ask.",
+        primary: true
+      },
+      { id: "not_sure", label: "I am not sure", hint: "Pause and see calm options." },
+      { id: "help", label: "I want help", hint: "Tips for getting support." },
+      { id: "more_time", label: "I want more time", hint: "There is no timer here." },
+      { id: "do_not_agree", label: "Stop here", hint: "See what saying no can mean." }
     ]
   },
 
   consentQuestions: {
     step: "7A",
-    progress: { current: 4, total: 5 },
+    progress: { current: 4, total: 5, next: "Summary" },
     title: "What would Sam like to ask?",
-    body: "Choose one or more questions. Sam can also ask for help or more time.",
+    body: "Choose one or more questions. Then continue to the summary.",
     noneYetId: "cq_none",
     questions: [
       { id: "cq1", label: "What information will be shared?" },
@@ -162,13 +169,13 @@ ICH.CONTENT = {
 
   agreementScenario: {
     step: "4B",
-    progress: { current: 1, total: 5 },
+    progress: { current: 1, total: 5, next: "Agreement parts" },
     title: "Example agreement",
     org: "Example Support",
     person: "Sam",
     body:
       "Example Support has a service agreement for Sam. We will look at it in plain language.",
-    cta: "Help Sam understand",
+    cta: "Look at the agreement",
     icon: "assets/icons/document.svg",
     explain: {
       shorter:
@@ -178,7 +185,7 @@ ICH.CONTENT = {
       steps: [
         "Open the agreement.",
         "Read each part: support, price, cancellations, responsibilities.",
-        "Choose what Sam wants to do.",
+        "Choose a next step.",
         "Choose questions Sam might ask.",
         "See a summary."
       ]
@@ -187,7 +194,7 @@ ICH.CONTENT = {
 
   agreementCards: {
     step: "5B",
-    progress: { current: 2, total: 5 },
+    progress: { current: 2, total: 5, next: "Choose a next step" },
     title: "What the agreement covers",
     intro: "Look at each part. Use Explain another way if you want.",
     cards: [
@@ -261,24 +268,30 @@ ICH.CONTENT = {
 
   agreementChoices: {
     step: "6B",
-    progress: { current: 3, total: 5 },
-    title: "What would Sam like to do?",
-    body: "Choose what feels right for Sam.",
+    progress: { current: 3, total: 5, next: "Questions" },
+    title: "Choose a next step",
+    body: "Pick how to continue this demo path. Nothing here records a real decision.",
+    otherIntro: "Need something else?",
     choices: [
-      { id: "understand", label: "I understand" },
-      { id: "not_sure", label: "I am not sure" },
-      { id: "help", label: "I want help" },
-      { id: "more_time", label: "I want more time" },
-      { id: "change", label: "I want something changed" },
-      { id: "do_not_agree", label: "I do not want to agree" }
+      {
+        id: "understand",
+        label: "Continue to questions",
+        hint: "Next: pick questions Sam might ask.",
+        primary: true
+      },
+      { id: "not_sure", label: "I am not sure", hint: "Pause and see calm options." },
+      { id: "help", label: "I want help", hint: "Tips for getting support." },
+      { id: "more_time", label: "I want more time", hint: "There is no timer here." },
+      { id: "change", label: "I want something changed", hint: "See options before going on." },
+      { id: "do_not_agree", label: "Stop here", hint: "See what saying no can mean." }
     ]
   },
 
   agreementQuestions: {
     step: "7B",
-    progress: { current: 4, total: 5 },
+    progress: { current: 4, total: 5, next: "Summary" },
     title: "What would Sam like to ask?",
-    body: "Choose one or more questions. Sam can also ask for help or more time.",
+    body: "Choose one or more questions. Then continue to the summary.",
     noneYetId: "aq_none",
     questions: [
       { id: "aq1", label: "What support will I get?" },
@@ -318,12 +331,12 @@ ICH.CONTENT = {
     change: {
       title: "Wanting a change",
       body:
-        "You can ask for changes before you agree. This prototype does not send requests anywhere."
+        "You can ask for changes before going further. This prototype does not send requests anywhere."
     },
     do_not_agree: {
-      title: "Not agreeing",
+      title: "Stopping here",
       body:
-        "Saying no is a valid choice."
+        "You do not have to go further. Saying no is a valid choice."
     }
   }
 };

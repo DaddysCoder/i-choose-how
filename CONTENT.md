@@ -7,7 +7,7 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 - Header brand: light-on-dark monogram + I Choose How
 - About: two calm boundary paragraphs (no consent recorded, nothing saved, no legal advice)
 - Toolbar (after mode chosen): Read | Listen | Show me | Supporter
-- Progress: Step X of Y (no timers)
+- Progress: Step X of Y · Next: … (where useful; no timers)
 - Nav: Back | Home | Start again
 - Footer (always visible): Does not record consent or give legal advice.
 
@@ -31,29 +31,64 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 ### 4. Choose how
 - Read / Listen / Show me / With a supporter (with short descriptions)
 
+## Pathway logic (revised)
+
+Each pathway screen has one primary continue action. Pause / help / stop options sit under **Need something else?** so they do not compete with the main path. Labels are navigation, not legal agree/refuse.
+
+```mermaid
+flowchart TD
+  welcome[Welcome] --> topic[Choose topic]
+  topic --> how[Choose how]
+  how --> c4A[4A Scenario]
+  how --> a4B[4B Scenario]
+  c4A -->|See what consent means| c5A[5A Meaning]
+  c4A -->|Need something else| safety[Safety pause]
+  c5A -->|Continue| c6A[6A Next step]
+  c5A --> safety
+  c6A -->|Continue to questions| c7A[7A Question builder]
+  c6A --> safety
+  safety -->|Continue to questions| c7A
+  safety -->|Back| c6A
+  c7A -->|See summary| c8A[8A Summary]
+  a4B -->|Look at the agreement| a5B[5B Parts]
+  a4B --> safety
+  a5B -->|Next part / Continue| a6B[6B Next step]
+  a5B --> safety
+  a6B -->|Continue to questions| a7B[7B Question builder]
+  a6B --> safety
+  safety -->|Continue to questions| a7B
+  safety -->|Back| a6B
+  a7B -->|See summary| a8B[8B Summary]
+```
+
 ## Consent pathway (4A-8A)
 
 ### 4A Example scenario
 - Example Support / Sam
-- Example Support wants to share Sam's support information
-- CTA: Help Sam understand
-- Explain: shorter / example / steps
-- Safety: I am not sure | I want help | I want more time
+- Primary CTA: See what consent means
+- Progress next: What consent means
+- Need something else?: I am not sure | I want help | I want more time
 
 ### 5A What consent means
 - Free yes; can say no; can change mind; can ask for help or time
 - Show me: Yes / No / Time / Help cards
-- Explain another way + Continue
+- Explain another way + primary Continue
+- Need something else?: pause options
+- Progress next: Choose a next step
 
-### 6A Choices
-- I understand / I am not sure / I want help / I want more time / I do not want to agree
+### 6A Choose a next step
+- Body: Pick how to continue this demo path. Nothing here records a real decision.
+- Primary: Continue to questions (hint: Next: pick questions Sam might ask.)
+- Need something else?: I am not sure | I want help | I want more time | Stop here
 - Footer visible (shared boundary line)
 
 ### 7A Question builder
 - Title: What would Sam like to ask?
-- Instruction: Choose one or more questions. Sam can also ask for help or more time.
+- Instruction: Choose one or more questions. Then continue to the summary.
 - Multi-select (no typing). Empty selection allowed.
 - "I do not have a question yet." is exclusive with other questions.
+- Primary: See summary
+- Progress next: Summary
 - Questions:
   - What information will be shared?
   - Who will see it?
@@ -73,7 +108,9 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 
 ### 4B Example agreement
 - Example Support / Sam
-- CTA: Help Sam understand
+- Primary CTA: Look at the agreement
+- Progress next: Agreement parts
+- Need something else?: pause options
 
 ### 5B Four cards (one at a time)
 1. Support - weekly community activities
@@ -81,10 +118,13 @@ Fixed copy lives in js/content.js. This document mirrors the screens and variant
 3. Cancellations - one day's notice when possible
 4. Responsibilities - respect; ask questions; ask for changes
 - Each card: plain sentence + Explain another way
+- Primary: Next part (or Continue on last part)
+- Need something else?: pause options
 
-### 6B Choices
-- Includes I want something changed
-- Also: I understand / I am not sure / I want help / I want more time / I do not want to agree
+### 6B Choose a next step
+- Same framing as consent
+- Primary: Continue to questions
+- Need something else?: I am not sure | I want help | I want more time | I want something changed | Stop here
 
 ### 7B Question builder
 - Same title and instruction pattern as consent
@@ -120,7 +160,7 @@ Supporter: Ask the person how they want the information explained. Read or show 
 
 Presets: Make it shorter | Give me an example | Show the steps
 
-If asked Should I agree?:
+If asked Should I say yes?:
 
 I cannot decide for you. You can ask questions, get help or take more time.
 

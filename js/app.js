@@ -118,13 +118,88 @@
       return;
     }
     els.progress.hidden = false;
-    els.progress.textContent =
-      "Step " + progress.current + " of " + progress.total;
+    var text = "Step " + progress.current + " of " + progress.total;
+    if (progress.next) text += " · Next: " + progress.next;
+    els.progress.textContent = text;
   }
 
   function showDecisionFooter(show) {
     /* Boundary line stays visible; `show` kept for call-site compatibility */
     els.footer.hidden = false;
+  }
+
+  function choiceButton(choice, onPick) {
+    var btn = el(
+      "button",
+      choice.primary ? "btn btn-primary btn-choice-block" : "btn btn-choice",
+      null
+    );
+    btn.type = "button";
+    var label = el("span", "choice-label", choice.label);
+    btn.appendChild(label);
+    if (choice.hint) {
+      btn.appendChild(el("span", "choice-hint", choice.hint));
+    }
+    btn.addEventListener("click", function () {
+      onPick(choice);
+    });
+    return btn;
+  }
+
+  function renderNextStepChoices(content, onPrimary, onOther) {
+    var root = el("div", "stack");
+    root.appendChild(el("h1", null, content.title));
+    root.appendChild(el("p", null, content.body));
+    if (state.mode === "supporter") root.appendChild(ICH.Modes.renderSupporterPanel());
+
+    var primary = [];
+    var secondary = [];
+    content.choices.forEach(function (choice) {
+      if (choice.primary) primary.push(choice);
+      else secondary.push(choice);
+    });
+
+    primary.forEach(function (choice) {
+      root.appendChild(
+        choiceButton(choice, function (picked) {
+          state.choice = picked.id;
+          onPrimary(picked);
+        })
+      );
+    });
+
+    if (secondary.length) {
+      root.appendChild(
+        el("p", "path-note", content.otherIntro || "Need something else?")
+      );
+      secondary.forEach(function (choice) {
+        root.appendChild(
+          choiceButton(choice, function (picked) {
+            state.choice = picked.id;
+            onOther(picked);
+          })
+        );
+      });
+    }
+
+    return { node: root, progress: content.progress, toolbar: true, decision: true };
+  }
+
+  function safetyRow(onPick) {
+    var wrap = el("div", "stack safety-options");
+    wrap.appendChild(el("p", "path-note", "Need something else?"));
+    [
+      { id: "not_sure", label: "I am not sure", hint: "Pause and see calm options." },
+      { id: "help", label: "I want help", hint: "Tips for getting support." },
+      { id: "more_time", label: "I want more time", hint: "There is no timer here." }
+    ].forEach(function (item) {
+      wrap.appendChild(
+        choiceButton(item, function () {
+          onPick(item.id);
+        })
+      );
+    });
+    return wrap;
   }
 
   function explainBlock(variants, speakParts) {
@@ -149,7 +224,7 @@
       wrap.appendChild(btn);
     });
 
-    var shouldAsk = el("button", "btn btn-text", "Should I agree?");
+    var shouldAsk = el("button", "btn btn-text", "Should I say yes?");
     shouldAsk.type = "button";
     shouldAsk.addEventListener("click", function () {
       state.explainVariant = "cannot";
@@ -192,23 +267,6 @@
       frag.appendChild(ICH.Modes.renderListenControls(speakText));
     }
     return frag;
-  }
-
-  function safetyRow(onPick) {
-    var row = el("div", "stack");
-    [
-      { id: "not_sure", label: "I am not sure" },
-      { id: "help", label: "I want help" },
-      { id: "more_time", label: "I want more time" }
-    ].forEach(function (item) {
-      var btn = el("button", "btn btn-choice", item.label);
-      btn.type = "button";
-      btn.addEventListener("click", function () {
-        onPick(item.id);
-      });
-      row.appendChild(btn);
-    });
-    return row;
   }
 
   /* ---------- Screens ---------- */
@@ -370,7 +428,7 @@
     root.appendChild(modeExtras(ICH.Modes.getSpeakableText(speak)));
     root.appendChild(explainBlock(c.explain, speak));
 
-    var next = el("button", "btn btn-primary", "Continue");
+    var next = el("button", "btn btn-primary", c.cta || "Continue");
     next.type = "button";
     next.addEventListener("click", function () {
       state.explainVariant = null;
@@ -385,27 +443,15 @@
   }
 
   function screenConsentChoices() {
-    var c = ICH.CONTENT.consentChoices;
-    var root = el("div", "stack");
-    root.appendChild(el("h1", null, c.title));
-    root.appendChild(el("p", null, c.body));
-    if (state.mode === "supporter") root.appendChild(ICH.Modes.renderSupporterPanel());
-
-    c.choices.forEach(function (choice) {
-      var btn = el("button", "btn btn-choice", choice.label);
-      btn.type = "button";
-      btn.addEventListener("click", function () {
-        state.choice = choice.id;
-        if (choice.id === "understand") {
-          go("consentQuestions");
-        } else {
-          go("safety", { safetyNote: choice.id });
-        }
-      });
-      root.appendChild(btn);
-    });
-
-    return { node: root, progress: c.progress, toolbar: true, decision: true };
+    return renderNextStepChoices(
+      ICH.CONTENT.consentChoices,
+      function () {
+        go("consentQuestions");
+      },
+      function (picked) {
+        go("safety", { safetyNote: picked.id });
+      }
+    );
   }
 
   function toggleQuestion(question, content) {
@@ -648,27 +694,15 @@
   }
 
   function screenAgreementChoices() {
-    var c = ICH.CONTENT.agreementChoices;
-    var root = el("div", "stack");
-    root.appendChild(el("h1", null, c.title));
-    root.appendChild(el("p", null, c.body));
-    if (state.mode === "supporter") root.appendChild(ICH.Modes.renderSupporterPanel());
-
-    c.choices.forEach(function (choice) {
-      var btn = el("button", "btn btn-choice", choice.label);
-      btn.type = "button";
-      btn.addEventListener("click", function () {
-        state.choice = choice.id;
-        if (choice.id === "understand") {
-          go("agreementQuestions");
-        } else {
-          go("safety", { safetyNote: choice.id });
-        }
-      });
-      root.appendChild(btn);
-    });
-
-    return { node: root, progress: c.progress, toolbar: true, decision: true };
+    return renderNextStepChoices(
+      ICH.CONTENT.agreementChoices,
+      function () {
+        go("agreementQuestions");
+      },
+      function (picked) {
+        go("safety", { safetyNote: picked.id });
+      }
+    );
   }
 
   function screenAgreementQuestions() {
@@ -723,6 +757,7 @@
     root.appendChild(el("h1", null, c.title));
     root.appendChild(el("p", null, c.body));
     root.appendChild(el("p", null, ICH.CANNOT_DECIDE));
+    root.appendChild(el("p", "path-note", "Next: questions, or go back."));
 
     if (state.mode === "supporter") root.appendChild(ICH.Modes.renderSupporterPanel());
 
@@ -733,7 +768,7 @@
       else go("consentQuestions");
     });
 
-    var backChoices = el("button", "btn btn-secondary", "Back to choices");
+    var backChoices = el("button", "btn btn-secondary", "Back to next-step choices");
     backChoices.type = "button";
     backChoices.addEventListener("click", function () {
       if (state.topic === "agreement") go("agreementChoices", { replace: true });

@@ -364,12 +364,28 @@ p {
   text-underline-offset: 3px;
 }
 
-.btn-choice {
+.btn-choice,
+.btn-choice-block {
   background: var(--white);
   border: 2px solid var(--charcoal);
   color: var(--charcoal);
   text-align: left;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.btn-choice-block {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+}
+
+.btn-choice-block:hover {
+  background: #1d4fd6;
+  border-color: #1d4fd6;
 }
 
 .btn-choice:hover,
@@ -378,6 +394,26 @@ p {
   border-color: var(--blue);
   border-width: 3px;
   box-shadow: inset 4px 0 0 var(--blue);
+}
+
+.choice-label {
+  font-weight: 700;
+}
+
+.choice-hint {
+  font-weight: 400;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.path-note {
+  margin: 0.35rem 0 0;
+  color: var(--slate);
+  font-weight: 700;
+}
+
+.safety-options {
+  margin-top: 0.25rem;
 }
 
 .btn:disabled {
